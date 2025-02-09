@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 
 export const FestivalModal = () => {
-  const { modalOpen, setModalOpen, selectedFestival } = useFestivalContext();
+  const { modalOpen, setModalOpen, selectedFestival, notes } = useFestivalContext();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -24,7 +24,9 @@ export const FestivalModal = () => {
         </DialogHeader>
         <p className='text-muted-foreground'>{selectedFestival?.description}</p>
 
-        <Button onClick={() => setIsOpen(true)}>Add Note</Button>
+        <Button onClick={() => setIsOpen(true)}>
+          {notes[Number(selectedFestival?.id)] ? 'Edit Note' : 'Add Note'}
+        </Button>
       </DialogContent>
 
       <NoteModal

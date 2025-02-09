@@ -19,7 +19,7 @@ export const NoteModal = ({ festivalId, isOpen, setIsOpen }: NoteModalProps) => 
 
   useEffect(() => {
     setNoteText(notes[festivalId] || '');
-  }, [festivalId, noteText]);
+  }, [festivalId]);
 
   const handleSave = () => {
     setNote(festivalId, noteText);
