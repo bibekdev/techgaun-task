@@ -1,3 +1,4 @@
+import { CalendarView } from '@/components/calendar-view';
 import { FestivalList } from '@/components/festival-list';
 import { MonthFilter } from '@/components/month-filter';
 import { SearchBar } from '@/components/search-bar';
@@ -32,7 +33,9 @@ export default function Home() {
               <MonthFilter />
               <FestivalList />
             </TabsContent>
-            <TabsContent value='calendar'>Calendar</TabsContent>
+            <TabsContent value='calendar'>
+              <CalendarView />
+            </TabsContent>
           </Tabs>
         </div>
       </div>
