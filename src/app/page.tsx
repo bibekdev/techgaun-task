@@ -1,5 +1,6 @@
 import { CalendarView } from '@/components/calendar-view';
 import { FestivalList } from '@/components/festival-list';
+import { FestivalModal } from '@/components/festival-modal';
 import { MonthFilter } from '@/components/month-filter';
 import { SearchBar } from '@/components/search-bar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -37,6 +38,7 @@ export default function Home() {
               <CalendarView />
             </TabsContent>
           </Tabs>
+          <FestivalModal />
         </div>
       </div>
     </div>

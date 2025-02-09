@@ -11,7 +11,11 @@ interface IFestivalContext {
   festivals: Festival[];
   selectedMonth: number | null;
   searchQuery: string;
+  modalOpen: boolean;
+  selectedFestival: Festival | null;
   setSearchQuery: Dispatch<SetStateAction<string>>;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  setSelectedFestival: Dispatch<SetStateAction<Festival | null>>;
   filteredFestivals: Festival[];
   setSelectedMonth: Dispatch<SetStateAction<number | null>>;
 }
@@ -21,6 +25,8 @@ const FestivalContext = createContext<IFestivalContext | undefined>(undefined);
 export const FestivalProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedFestival, setSelectedFestival] = useState<Festival | null>(null);
 
   const filteredFestivals = festivals.filter(festival => {
     const matchesMonth = selectedMonth
@@ -40,7 +46,11 @@ export const FestivalProvider = ({ children }: { children: React.ReactNode }) =>
     setSelectedMonth,
     searchQuery,
     setSearchQuery,
-    filteredFestivals
+    filteredFestivals,
+    modalOpen,
+    setModalOpen,
+    selectedFestival,
+    setSelectedFestival
   };
 
   return <FestivalContext.Provider value={value}>{children}</FestivalContext.Provider>;

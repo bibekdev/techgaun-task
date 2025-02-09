@@ -1,5 +1,6 @@
 'use client';
 
+import { Festival } from '@/lib/festivals';
 import { useFestivalContext } from '@/providers/festival-provider';
 import moment from 'moment';
 import { useState } from 'react';
@@ -13,7 +14,7 @@ const localizer = momentLocalizer(moment);
 export const CalendarView = () => {
   const [view] = useState(Views.MONTH);
   const [date, setDate] = useState(new Date());
-  const { festivals } = useFestivalContext();
+  const { festivals, setSelectedFestival, setModalOpen } = useFestivalContext();
 
   const events = festivals.map(festival => {
     const startDate = new Date(festival.startDate);
@@ -63,6 +64,10 @@ export const CalendarView = () => {
         popup
         views={['month']}
         components={components}
+        onSelectEvent={event => {
+          setSelectedFestival(event.resource as Festival);
+          setModalOpen(true);
+        }}
       />
     </div>
   );
