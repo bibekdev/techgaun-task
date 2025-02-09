@@ -1,12 +1,15 @@
 'use client';
 
 import { useFestivalContext } from '@/providers/festival-provider';
-import { Dialog, DialogContent, DialogDescription, DialogHeader } from './ui/dialog';
-import { DialogTitle } from '@radix-ui/react-dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './ui/dialog';
 import { formatDateRange } from '@/lib/utils';
+import { NoteModal } from './note-modal';
+import { useState } from 'react';
+import { Button } from './ui/button';
 
 export const FestivalModal = () => {
   const { modalOpen, setModalOpen, selectedFestival } = useFestivalContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Dialog
@@ -20,7 +23,15 @@ export const FestivalModal = () => {
           </DialogDescription>
         </DialogHeader>
         <p className='text-muted-foreground'>{selectedFestival?.description}</p>
+
+        <Button onClick={() => setIsOpen(true)}>Add Note</Button>
       </DialogContent>
+
+      <NoteModal
+        festivalId={Number(selectedFestival?.id)}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     </Dialog>
   );
 };

@@ -2,13 +2,14 @@ import { Festival } from '@/lib/festivals';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { formatDateRange } from '@/lib/utils';
 import { useFestivalContext } from '@/providers/festival-provider';
+import { StickyNote } from 'lucide-react';
 
 interface FestivalCardProps {
   festival: Festival;
 }
 
 export const FestivalCard = ({ festival }: FestivalCardProps) => {
-  const { setModalOpen, setSelectedFestival } = useFestivalContext();
+  const { setModalOpen, setSelectedFestival, notes } = useFestivalContext();
 
   return (
     <Card
@@ -18,7 +19,9 @@ export const FestivalCard = ({ festival }: FestivalCardProps) => {
         setModalOpen(true);
       }}>
       <CardHeader>
-        <CardTitle>{festival.name}</CardTitle>
+        <CardTitle className='flex items-center gap-4'>
+          {festival.name} {notes[festival.id] && <StickyNote className='size-5 text-yellow-500' />}
+        </CardTitle>
         <CardDescription>{formatDateRange(festival.startDate, festival.endDate)}</CardDescription>
       </CardHeader>
       <CardContent>

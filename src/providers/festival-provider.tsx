@@ -1,7 +1,7 @@
 'use client';
 
 import { Festival, festivals } from '@/lib/festivals';
-import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 
 interface Note {
   [festivalId: number]: string;
@@ -12,11 +12,13 @@ interface IFestivalContext {
   selectedMonth: number | null;
   searchQuery: string;
   modalOpen: boolean;
+  notes: Note;
   selectedFestival: Festival | null;
   setSearchQuery: Dispatch<SetStateAction<string>>;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   setSelectedFestival: Dispatch<SetStateAction<Festival | null>>;
   filteredFestivals: Festival[];
+  setNote: (festivalId: number, note: string) => void;
   setSelectedMonth: Dispatch<SetStateAction<number | null>>;
 }
 
@@ -27,6 +29,20 @@ export const FestivalProvider = ({ children }: { children: React.ReactNode }) =>
   const [searchQuery, setSearchQuery] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedFestival, setSelectedFestival] = useState<Festival | null>(null);
+  const [notes, setNotes] = useState<Note>({});
+
+  useEffect(() => {
+    const savedNotes = localStorage.getItem('festivalNotes');
+    if (savedNotes) {
+      setNotes(JSON.parse(savedNotes));
+    }
+  }, []);
+
+  const setNote = (festivalId: number, note: string) => {
+    const updatedNotes = { ...notes, [festivalId]: note };
+    setNotes(updatedNotes);
+    localStorage.setItem('festivalNotes', JSON.stringify(updatedNotes));
+  };
 
   const filteredFestivals = festivals.filter(festival => {
     const matchesMonth = selectedMonth
@@ -50,7 +66,9 @@ export const FestivalProvider = ({ children }: { children: React.ReactNode }) =>
     modalOpen,
     setModalOpen,
     selectedFestival,
-    setSelectedFestival
+    setSelectedFestival,
+    notes,
+    setNote
   };
 
   return <FestivalContext.Provider value={value}>{children}</FestivalContext.Provider>;

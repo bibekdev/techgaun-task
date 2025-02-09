@@ -2,6 +2,7 @@
 
 import { Festival } from '@/lib/festivals';
 import { useFestivalContext } from '@/providers/festival-provider';
+import { StickyNote } from 'lucide-react';
 import moment from 'moment';
 import { useState } from 'react';
 import { Calendar, momentLocalizer, Views, type Components } from 'react-big-calendar';
@@ -14,7 +15,7 @@ const localizer = momentLocalizer(moment);
 export const CalendarView = () => {
   const [view] = useState(Views.MONTH);
   const [date, setDate] = useState(new Date());
-  const { festivals, setSelectedFestival, setModalOpen } = useFestivalContext();
+  const { festivals, setSelectedFestival, setModalOpen, notes } = useFestivalContext();
 
   const events = festivals.map(festival => {
     const startDate = new Date(festival.startDate);
@@ -25,7 +26,8 @@ export const CalendarView = () => {
       start: startDate,
       end: endDate,
       allDay: true,
-      resource: festival
+      resource: festival,
+      hasNote: notes[festival.id] ? true : false
     };
   });
 
@@ -41,6 +43,11 @@ export const CalendarView = () => {
   const EventComponent = ({ event }: { event: any }) => (
     <div className='flex flex-col h-full justify-center'>
       <div className='font-semibold'>{event.title}</div>
+      {event.hasNote && (
+        <div className='text-xs flex gap-1'>
+          <StickyNote className='size-4 text-yellow-500' /> Note
+        </div>
+      )}
     </div>
   );
 
