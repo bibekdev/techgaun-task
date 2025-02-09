@@ -1,0 +1,25 @@
+{
+  "name": "techgaun-task",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "15.1.6"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  },
+  "packageManager": "pnpm@10.0.0-rc.3+sha512.5be0426818bc14eedfa404e2d64e10acdb5073c72dd5b78eb0b7d16ad743e817ceda0cb9309a05137da2eda405f3423899fd89217ff2d7f50c79758176cef6cc"
+}
